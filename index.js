@@ -91,11 +91,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
         newArray.push(index)
       }
       newArray.forEach(function(element) {
-        document.querySelectorAll(".point")[element].children[0].style.fill = "red";
+        document.querySelectorAll(".point")[element].children[0].style.fill = "#AF0C0C";
       })
     })
   }
 
   calculation(trace1, trace2);
+  document.addEventListener("keypress", function(event) {
+    if (event.keyCode == '13') {
+      document.getElementById("plot").remove();
+      const newR = '1600';
+      const newE = '1000';
+      trace1.x.shift();
+      trace2.x.shift();
+      trace1.x.push('29-5-2018');
+      trace2.x.push('29-5-2018');
+      trace1.y.shift();
+      trace2.y.shift();
+      trace1.y.push(newR);
+      trace2.y.push(newE);
+      trace2.error_y.array.shift();
+      trace2.error_y.array.push(0.2 * newE)
+      Plotly.newPlot('test', data, layout);
+      calculation(trace1, trace2);
+    }
+    setTimeout(function() {
+      alert("Excessive energy use detected");
+    }, 3000);
+  })
 
 });
