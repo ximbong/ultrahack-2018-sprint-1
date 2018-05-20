@@ -1,6 +1,19 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   const realData = [
+    2223,
+    3223,
+    2252,
+    2536,
+    2237,
+    3337,
+    2229,
+    2312,
+    3225,
+    2100
+  ];
+
+  const expectedData = [
     2123,
     3123,
     2352,
@@ -10,20 +23,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     2329,
     2212,
     3325,
-    1112
-  ];
-
-  const expectedData = [
-    2523,
-    3523,
-    1535,
-    2526,
-    2537,
-    3537,
-    2529,
-    2512,
-    3525,
-    1312
+    2112
   ];
 
   const trace1 = {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     error_y: {
       type: 'data',
       arrayminus: expectedData.map(function(element) {
-        return 0.4 * element;
+        return 0.05 * element;
       }),
       visible: true
     },
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const data = [trace1, trace2];
 
   const layout = {
-    title: 'Energy generated from panel A-09 (kWh)'
+    title: 'Energy generated from solar panel (kWh)'
   };
 
   Plotly.newPlot('plot', data, layout);
@@ -103,27 +103,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   calculation(trace1, trace2);
-  document.addEventListener("keypress", function(event) {
-    if (event.keyCode == '13') {
-      document.getElementById("plot").remove();
-      const newR = '100';
-      const newE = '1000';
-      trace1.x.shift();
-      trace2.x.shift();
-      trace1.x.push('29-4-2017');
-      trace2.x.push('29-4-2017');
-      trace1.y.shift();
-      trace2.y.shift();
-      trace1.y.push(newR);
-      trace2.y.push(newE);
-      trace2.error_y.arrayminus.shift();
-      trace2.error_y.arrayminus.push(0.2 * newE)
-      Plotly.newPlot('test', data, layout);
-      calculation(trace1, trace2);
-    }
-    setTimeout(function() {
-      alert("Low energy generated!");
-    }, 1000);
-  })
-
 });
